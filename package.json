@@ -8,10 +8,31 @@
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^17.4.2",
     "express": "^4.22.2",
+    "express-handlebars": "^9.0.1",
     "hbs": "^4.2.1",
     "http-errors": "~1.6.3",
     "mongoose": "^9.6.3",
-    "morgan": "^1.10.1"
-  }
+    "morgan": "^1.10.1",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^0.802.2",
+    "nodemon": "^3.1.14"
+  },
+  "description": "",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emeraldskye16/travlr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/emeraldskye16/travlr/issues"
+  },
+  "homepage": "https://github.com/emeraldskye16/travlr#readme"
 }

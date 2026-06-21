@@ -1,4 +1,5 @@
 /* Website template by freewebsitetemplates.com */
+@import 'assets/css/styles.css';
 body {
 	background: #ffb744 url(../images/bg-body.jpg) repeat left bottom;
 	font-family: "Times New Roman", Times, serif;

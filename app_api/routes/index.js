@@ -1,17 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-// Import controller
-const tripsController = require('../controllers/trips');
+const {
+  tripsList,
+  tripsAddTrip,
+  tripsFindByCode,
+  tripsUpdateTrip
+} = require('../controllers/trips');
 
-// GET all trips
+// /api/trips
 router
   .route('/trips')
-  .get(tripsController.tripsList);
+  .get(tripsList)
+  .post(tripsAddTrip);
 
-// GET single trip by code
+// /api/trips/:tripCode
 router
   .route('/trips/:tripCode')
-  .get(tripsController.tripsFindByCode);
+  .get(tripsFindByCode)
+  .put(tripsUpdateTrip);
 
 module.exports = router;

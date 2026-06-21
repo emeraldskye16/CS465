@@ -1,41 +1,61 @@
 const mongoose = require('mongoose');
-const Trip = require('../models/travlr'); // Register model
-const Model = mongoose.model('trips');
+const Trip = mongoose.model('trips');
 
-// GET: /trips - list all trips
-const tripsList = async (req, res) => {
-    const q = await Model.find({}).exec();
-
-    if (!q || q.length === 0) {
-        return res
-            .status(404)
-            .json({ message: "No trips found" });
-    } else {
-        return res
-            .status(200)
-            .json(q);
-    }
+// GET /api/trips
+const tripsList = async function (req, res) {
+  try {
+    const trips = await Trip.find().exec();
+    res.status(200).json(trips);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching trips', error: err });
+  }
 };
 
-// GET: /trips/:tripCode - find one trip
-const tripsFindByCode = async (req, res) => {
-    const q = await Model
-        .find({ 'code': req.params.tripCode })
-        .exec();
-
-    if (!q || q.length === 0) {
-        return res
-            .status(404)
-            .json({ message: "Trip not found" });
-    } else {
-        return res
-            .status(200)
-            .json(q);
-    }
+// POST /api/trips
+const tripsAddTrip = async function (req, res) {
+  try {
+    const trip = await Trip.create(req.body);
+    res.status(201).json(trip);
+  } catch (err) {
+    res.status(400).json({ message: 'Error adding trip', error: err });
+  }
 };
 
-// Export BOTH functions
+// GET /api/trips/:tripCode
+const tripsFindByCode = async function (req, res) {
+  try {
+    const trip = await Trip.findOne({ code: req.params.tripCode }).exec();
+    if (!trip) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+    res.status(200).json(trip);
+  } catch (err) {
+    res.status(500).json({ message: 'Error finding trip', error: err });
+  }
+};
+
+// PUT /api/trips/:tripCode
+const tripsUpdateTrip = async function (req, res) {
+  try {
+    const updated = await Trip.findOneAndUpdate(
+      { code: req.params.tripCode },
+      req.body,
+      { new: true }
+    ).exec();
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+
+    res.status(200).json(updated);
+  } catch (err) {
+    res.status(400).json({ message: 'Error updating trip', error: err });
+  }
+};
+
 module.exports = {
-    tripsList,
-    tripsFindByCode
+  tripsList,
+  tripsAddTrip,
+  tripsFindByCode,
+  tripsUpdateTrip
 };
